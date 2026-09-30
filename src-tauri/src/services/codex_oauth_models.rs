@@ -143,7 +143,7 @@ mod tests {
     use serde_json::json;
 
     #[test]
-    fn codex_oauth_model_discovery_uses_gpt6_compatible_identity() {
+    fn codex_oauth_model_discovery_uses_gpt6_1_sol_compatible_identity() {
         let request = build_models_request(&reqwest::Client::new(), "test-token", "test-account")
             .build()
             .unwrap();
@@ -161,15 +161,18 @@ mod tests {
             .split('.')
             .map(|part| part.parse().unwrap())
             .collect();
-        // Sol and Luna are absent from the 0.153.4 catalog for this account.
-        assert!(parts.as_slice() >= [0, 155, 0].as_slice());
+        // Codex 0.159.1 added GPT-6.1 Sol to its bundled model catalog.
+        assert!(parts.as_slice() >= [0, 159, 1].as_slice());
         assert_eq!(request.headers()["version"], version);
         let models = parse_models(json!({"models": [
             {"slug": "gpt-6-sol", "minimal_client_version": "0.155.0"},
-            {"slug": "gpt-6-luna", "minimal_client_version": "0.155.0"}
+            {"slug": "gpt-6-luna", "minimal_client_version": "0.155.0"},
+            {"slug": "gpt-6.1-sol", "display_name": "GPT-6.1 Sol"}
         ]}));
+        assert_eq!(models.len(), 3);
         assert_eq!(models[0].id, "gpt-6-luna");
         assert_eq!(models[1].id, "gpt-6-sol");
+        assert_eq!(models[2].id, "gpt-6.1-sol");
     }
 
     #[test]

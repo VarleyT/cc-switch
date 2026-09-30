@@ -92,7 +92,7 @@ fn supports_max_reasoning_effort(model: &str) -> bool {
         "gpt-5.6" | "gpt-5.6-sol" | "gpt-5.6-terra" | "gpt-5.6-luna"
     ) || matches!(
         normalized.as_str(),
-        "gpt-6-astra" | "gpt-6-sol" | "gpt-6-luna"
+        "gpt-6-astra" | "gpt-6-sol" | "gpt-6-luna" | "gpt-6.1-sol"
     )
 }
 
@@ -1792,6 +1792,7 @@ mod tests {
         assert!(supports_reasoning_effort("gpt-5"));
         assert!(supports_reasoning_effort("gpt-5.4"));
         assert!(supports_reasoning_effort("gpt-5-codex"));
+        assert!(supports_reasoning_effort("gpt-6.1-sol"));
         assert!(supports_reasoning_effort("grok-4.5"));
         assert!(supports_reasoning_effort("grok-4.6"));
         assert!(supports_reasoning_effort("grok-4.6-build"));
@@ -1841,6 +1842,8 @@ mod tests {
             "gpt-6-astra",
             "gpt-6-sol",
             "gpt-6-luna",
+            "gpt-6.1-sol",
+            "GPT-6.1-SOL",
         ] {
             let body = json!({
                 "model": model,

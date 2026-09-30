@@ -1173,7 +1173,7 @@ mod tests {
     }
 
     #[test]
-    fn codex_oauth_generation_uses_gpt6_compatible_identity() {
+    fn codex_oauth_generation_uses_gpt6_1_sol_compatible_identity() {
         let headers: http::HeaderMap = ClaudeAdapter::new()
             .get_auth_headers(&AuthInfo::new(
                 "test-token".into(),
@@ -1190,10 +1190,10 @@ mod tests {
             .split('.')
             .map(|part| part.parse().unwrap())
             .collect();
-        // Sol and Luna require the newer Codex client identity on ChatGPT accounts.
+        // Match the Codex release that added GPT-6.1 Sol to the model catalog.
         assert!(
-            version.as_slice() >= [0, 155, 0].as_slice(),
-            "gpt-6-sol and gpt-6-luna require Codex >= 0.155.0; sent {version:?}"
+            version.as_slice() >= [0, 159, 1].as_slice(),
+            "GPT-6.1 Sol catalog support was added in Codex 0.159.1; sent {version:?}"
         );
     }
 

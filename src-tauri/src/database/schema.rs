@@ -1795,6 +1795,9 @@ impl Database {
             //（会与 *-max 真 id 撞名），不另加后缀行。
             ("gpt-6-astra", "GPT-6 Astra", "10", "50", "1", "12.5"),
             ("gpt-6-sol", "GPT-6 Sol", "2", "10", "0.20", "2.50"),
+            // GPT-6.1 Sol (2026-09-29): Standard short-context pricing;
+            // cached input is 5% of input, cache writes remain 1.25x input.
+            ("gpt-6.1-sol", "GPT-6.1 Sol", "2", "10", "0.10", "2.50"),
             ("gpt-6-luna", "GPT-6 Luna", "0.10", "0.50", "0.01", "0.125"),
             // GPT-5.6 系列（Sol / Terra / Luna，2026-06 发布）
             // 5.6 家族起 cache write 收 1.25× 输入价（此前 GPT 模型写缓存免费，勿回填旧系列）
